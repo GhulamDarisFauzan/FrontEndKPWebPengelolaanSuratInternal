@@ -13,11 +13,7 @@ export default function ResetPWA2() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Tampilkan alert terlebih dahulu
     alert("Password telah direset");
-
-    // Delay 1 detik sebelum pindah ke halaman login
     setTimeout(() => {
       navigate("/LoginAdmin");
     }, 1000);
@@ -26,32 +22,32 @@ export default function ResetPWA2() {
   return (
     <>
       {showNotification && (
-        <div className="w-full bg-green-100 text-green-800 text-center py-3 font-semibold shadow">
+        <div className="w-full bg-green-100 text-green-800 text-center py-3 font-semibold shadow z-10">
           Berhasil terkirim, cek email kamu!
         </div>
       )}
 
-      <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white relative">
+      <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white relative px-4">
         {/* Tombol Admin */}
-        <div className="absolute top-5 right-5">
-          <button className="bg-green-500 text-black font-bold px-4 py-2 rounded-full hover:bg-green-600">
+        <div className="absolute top-4 right-4">
+          <button className="bg-green-500 text-black font-bold px-4 py-2 rounded-full hover:bg-green-600 text-sm">
             Admin
           </button>
         </div>
 
         {/* Gambar Gedung */}
-        <div className="md:w-1/2 w-full flex justify-center items-center p-5">
+        <div className="md:w-1/2 w-full flex justify-center items-center p-4">
           <img
             src="../src/assets/kejaksaanBL.jpg"
             alt="Kejaksaan Negeri"
-            className="max-w-full max-h-[420px] object-contain"
+            className="w-full max-w-md object-contain"
           />
         </div>
 
-        {/* Form Reset Password */}
-        <div className="md:w-1/2 w-full px-10">
-          <div className="max-w-md w-full">
-            {/* Logo dan Judul */}
+        {/* Form Reset */}
+        <div className="md:w-1/2 w-full px-4 sm:px-8">
+          <div className="max-w-md w-full mx-auto">
+            {/* Logo & Judul */}
             <div className="flex items-center space-x-4 mb-4">
               <img
                 src="../src/assets/Logo Kejaksaan.png"
@@ -65,7 +61,7 @@ export default function ResetPWA2() {
             </div>
 
             <p className="text-gray-600 mb-4">
-              Masukkan Code yang telah dikirimkan ke email
+              Masukkan kode yang telah dikirimkan ke email Anda
             </p>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
@@ -90,7 +86,7 @@ export default function ResetPWA2() {
 
               <button
                 type="submit"
-                className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 font-semibold shadow-sm"
+                className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 font-semibold shadow-sm w-full"
               >
                 Reset Password
               </button>

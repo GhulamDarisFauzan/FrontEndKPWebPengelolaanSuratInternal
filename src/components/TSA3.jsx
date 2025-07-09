@@ -48,7 +48,7 @@ export default function TSA3() {
       {/* Header */}
       <header className="bg-green-500 text-white">
         <div className="bg-green-500 h-12" />
-        <div className="flex items-center justify-between px-6 py-3 bg-white">
+        <div className="flex items-center justify-between px-6 py-3 bg-white shadow">
           <div className="flex items-center space-x-4">
             <img src="./src/assets/Logo Kejaksaan.png" alt="Logo" className="w-12 h-12" />
             <div className="text-black">
@@ -56,11 +56,10 @@ export default function TSA3() {
               <h2 className="text-2xl font-bold">Bandar Lampung</h2>
             </div>
           </div>
-
           <nav className="flex items-center space-x-20">
-            <a href="/DashboardAdmin1" className="text-black font-medium">Home</a>
-            <a href="#" className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white">Template Surat</a>
-            <a href="/DashboardAdmin3" className="text-black font-medium e">Surat M/K</a>
+            <Link to="/DashboardAdmin1" className="text-black font-medium">Home</Link>
+            <span className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white">Template Surat</span>
+            <Link to="/DashboardAdmin3" className="text-black font-medium">Surat M/K</Link>
             <button className="bg-black text-white text-sm px-4 py-1 rounded-full font-bold">Admin</button>
           </nav>
         </div>
@@ -68,7 +67,7 @@ export default function TSA3() {
       </header>
 
       {/* Content */}
-      <div className="min-h-screen bg-gray-100 px-8 py-8">
+      <main className="px-8 py-8">
         <h1 className="text-2xl text-red-600 font-bold mb-2 border-b-4 border-black inline-block">Template Surat</h1>
         <h2 className="text-center font-semibold text-black mb-6">“Template Surat”</h2>
 
@@ -77,7 +76,7 @@ export default function TSA3() {
           <input
             type="text"
             placeholder="Cari nomor, nama, tanggal, keterangan..."
-            className="w-1/2 px-4 py-2 border border-gray-400 rounded"
+            className="w-full max-w-xl px-4 py-2 border border-gray-400 rounded"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -104,8 +103,8 @@ export default function TSA3() {
                   <td className="p-3">{surat.keterangan}</td>
                   <td className="p-3">
                     <Link
-                      to={"/DetailTSA"}
-                      className="bg-black text-white px-3 py-1 rounded-full text-sm font-semibold"
+                      to="/DetailTSA"
+                      className="bg-black text-white px-3 py-1 rounded-full text-sm font-semibold hover:bg-gray-800 transition"
                     >
                       Detail
                     </Link>
@@ -118,7 +117,13 @@ export default function TSA3() {
 
         {/* Pagination */}
         <div className="flex justify-center mt-6 space-x-1">
-          <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="px-3 py-1 border rounded disabled:opacity-50">Previous</button>
+          <button
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-3 py-1 border rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
           {Array.from({ length: totalPages }, (_, i) => i + 1).slice(0, 5).map((page) => (
             <button
               key={page}
@@ -128,11 +133,26 @@ export default function TSA3() {
               {page}
             </button>
           ))}
-          {totalPages > 5 && <span className="px-2">...</span>}
-          {totalPages > 5 && <button onClick={() => goToPage(totalPages)} className="px-3 py-1 border rounded">{totalPages}</button>}
-          <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages} className="px-3 py-1 border rounded disabled:opacity-50">Next</button>
+          {totalPages > 5 && (
+            <>
+              <span className="px-2">...</span>
+              <button
+                onClick={() => goToPage(totalPages)}
+                className="px-3 py-1 border rounded"
+              >
+                {totalPages}
+              </button>
+            </>
+          )}
+          <button
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-3 py-1 border rounded disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

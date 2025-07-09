@@ -9,10 +9,10 @@ export default function LoginAdmin() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white relative">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white relative px-4">
       {/* Tombol Admin */}
-      <div className="absolute top-5 right-5">
-        <button className="bg-green-500 text-black font-bold px-4 py-2 rounded-full hover:bg-green-600">
+      <div className="absolute top-4 right-4">
+        <button className="bg-green-500 text-black font-bold px-4 py-2 rounded-full hover:bg-green-600 text-sm md:text-base">
           Admin
         </button>
       </div>
@@ -22,13 +22,13 @@ export default function LoginAdmin() {
         <img
           src="../src/assets/kejaksaanBL.jpg"
           alt="Kejaksaan Negeri"
-          className="max-w-full max-h-[420px] object-contain"
+          className="w-full max-w-md h-auto object-contain"
         />
       </div>
 
       {/* Form Login */}
-      <div className="md:w-1/2 w-full px-10">
-        <div className="max-w-md w-full">
+      <div className="md:w-1/2 w-full px-6 md:px-10 py-4">
+        <div className="max-w-md w-full mx-auto">
           {/* Logo dan Judul */}
           <div className="flex items-center space-x-4 mb-4">
             <img
@@ -42,25 +42,25 @@ export default function LoginAdmin() {
             </h1>
           </div>
 
-          <p className="text-gray-600 mb-4">Masukkan akun anda</p>
+          <p className="text-gray-600 mb-4 text-sm">Masukkan akun anda</p>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Username"
-              className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none"
+              className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none text-sm"
             />
             <input
               type="password"
               placeholder="Password"
-              className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none"
+              className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none text-sm"
             />
 
             {/* Login + Lupa Password */}
-            <div className="flex items-center justify-between mt-2">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-2">
               <button
                 type="submit"
-                className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 font-semibold shadow-sm"
+                className="bg-green-500 text-white w-full sm:w-auto px-6 py-2 rounded hover:bg-green-600 font-semibold shadow-sm text-sm"
               >
                 Log In
               </button>

@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 export default function TSA1() {
   const navigate = useNavigate();
 
+  const handleSimpan = () => {
+    // Tambahkan validasi / penyimpanan di sini jika diperlukan
+    navigate("/TSA2");
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
@@ -21,24 +26,17 @@ export default function TSA1() {
             </div>
           </div>
 
-          {/* Nav Buttons */}
           <nav className="flex items-center space-x-20">
-            <a
-              href="/DashboardAdmin1"
-              className="text-black font-medium "
-            >
+            <a href="/DashboardAdmin1" className="text-black font-medium">
               Home
             </a>
             <a
               href="#"
-              className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white hover:bg-green-500"
+              className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white"
             >
               Template Surat
             </a>
-            <a
-              href="/DashboardAdmin3"
-              className="text-black font-medium "
-            >
+            <a href="/DashboardAdmin3" className="text-black font-medium">
               Surat M/K
             </a>
             <button className="bg-black text-white text-sm px-4 py-1 rounded-full font-bold">
@@ -50,56 +48,56 @@ export default function TSA1() {
       </header>
 
       {/* Content */}
-      <main className="px-8 pt-4 pb-10">
-          <div className="bg-gray-100 px-10 pt-4 pb-8">
-
- 
-
-          <div className="flex justify-between items-center mb-6">
-              {/* Judul kiri */}
-              <h1 className="text-2xl text-red-600 font-bold border-b-4 border-black inline-block pb-1">
+      <main className="px-6 pt-4 pb-10">
+        <div className="bg-gray-100 px-6 md:px-10 pt-4 pb-8 rounded">
+          {/* Judul dan Tombol Simpan */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+            <h1 className="text-2xl text-red-600 font-bold border-b-4 border-black inline-block">
               Template Surat
-              </h1>
-
-                {/* Subjudul tengah */}
-                 <h2 className="text-center font-bold text-black">
-                “Masukkan Template Surat Baru”
-                </h2>
-            {/* Tombol Simpan */}
-            <div className="flex justify-end mb-4">
-              <a href="/TSA2">
-              <button className="bg-black text-white px-4 py-1 rounded-full font-semibold">
-                Simpan
-              </button>
-              </a>
-            </div>
-
-         </div>
+            </h1>
+            <h2 className="text-center font-bold text-black">
+              “Masukkan Template Surat Baru”
+            </h2>
+            <button
+              onClick={handleSimpan}
+              className="bg-black text-white px-4 py-1 rounded-full font-semibold"
+            >
+              Simpan
+            </button>
+          </div>
 
           {/* Isi Konten */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {/* Form Input */}
             <div className="space-y-6">
-              
               <div>
-                <label className="block text-gray-800 mb-1">Nama Surat</label>
+                <label htmlFor="nama" className="block text-gray-800 mb-1">
+                  Nama Surat:
+                </label>
                 <input
+                  id="nama"
                   type="text"
                   className="w-full border border-gray-400 rounded px-3 py-2"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-800 mb-1">Tanggal:</label>
+                <label htmlFor="tanggal" className="block text-gray-800 mb-1">
+                  Tanggal:
+                </label>
                 <input
+                  id="tanggal"
                   type="date"
                   className="w-full border border-gray-400 rounded px-3 py-2"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-800 mb-1">Keterangan:</label>
+                <label htmlFor="keterangan" className="block text-gray-800 mb-1">
+                  Keterangan:
+                </label>
                 <textarea
+                  id="keterangan"
                   rows="4"
                   className="w-full border border-gray-400 rounded px-3 py-2"
                 ></textarea>

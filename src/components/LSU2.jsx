@@ -48,16 +48,16 @@ export default function LSU2() {
       {/* Header */}
       <header className="bg-green-500 text-white">
         <div className="bg-green-500 h-12" />
-        <div className="flex items-center justify-between px-6 py-3 bg-white">
+        <div className="flex flex-wrap md:flex-nowrap items-center justify-between px-6 py-3 bg-white gap-4">
           <div className="flex items-center space-x-4">
             <img src="./src/assets/Logo Kejaksaan.png" alt="Logo" className="w-12 h-12" />
             <div className="text-black">
-              <h1 className="text-lg font-semibold">Kejaksaan Negeri</h1>
-              <h2 className="text-2xl font-bold">Bandar Lampung</h2>
+              <h1 className="text-base md:text-lg font-semibold">Kejaksaan Negeri</h1>
+              <h2 className="text-xl md:text-2xl font-bold">Bandar Lampung</h2>
             </div>
           </div>
 
-          <nav className="flex items-center space-x-20">
+          <nav className="flex flex-wrap gap-4 text-sm items-center">
             <a href="/User1" className="text-black font-medium">Home</a>
             <a href="/User2" className="text-black font-medium">Template Surat</a>
             <a href="#" className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white">Surat M/K</a>
@@ -68,7 +68,7 @@ export default function LSU2() {
       </header>
 
       {/* Content */}
-      <div className="min-h-screen bg-gray-100 px-8 py-8">
+      <div className="px-4 sm:px-8 py-8">
         <h1 className="text-2xl text-red-600 font-bold mb-2 border-b-4 border-black inline-block">Surat Keluar</h1>
         <h2 className="text-center font-semibold text-black mb-6">“Surat Keluar”</h2>
 
@@ -77,15 +77,15 @@ export default function LSU2() {
           <input
             type="text"
             placeholder="Cari nomor, nama, tanggal, keterangan..."
-            className="w-1/2 px-4 py-2 border border-gray-400 rounded"
+            className="w-full sm:w-1/2 px-4 py-2 border border-gray-400 rounded"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse">
+        <div className="overflow-x-auto bg-white rounded shadow-sm">
+          <table className="min-w-full border-collapse text-sm">
             <thead>
               <tr className="bg-gray-500 text-white">
                 <th className="p-3 text-left">No</th>
@@ -97,7 +97,7 @@ export default function LSU2() {
             </thead>
             <tbody>
               {paginatedData.map((surat, index) => (
-                <tr key={surat.id} className="bg-white border-b hover:bg-gray-200">
+                <tr key={surat.id} className="bg-white border-b hover:bg-gray-100">
                   <td className="p-3">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                   <td className="p-3">{surat.nama}</td>
                   <td className="p-3">{new Date(surat.tanggal).toLocaleDateString("id-ID")}</td>
@@ -105,7 +105,7 @@ export default function LSU2() {
                   <td className="p-3">
                     <Link
                       to={"/DetailSKU"}
-                      className="bg-black text-white px-3 py-1 rounded-full text-sm font-semibold"
+                      className="bg-black text-white px-3 py-1 rounded-full text-xs font-semibold"
                     >
                       Detail
                     </Link>
@@ -117,7 +117,7 @@ export default function LSU2() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center mt-6 space-x-1">
+        <div className="flex flex-wrap justify-center mt-6 gap-1 text-sm">
           <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="px-3 py-1 border rounded disabled:opacity-50">Previous</button>
           {Array.from({ length: totalPages }, (_, i) => i + 1).slice(0, 5).map((page) => (
             <button
@@ -128,8 +128,12 @@ export default function LSU2() {
               {page}
             </button>
           ))}
-          {totalPages > 5 && <span className="px-2">...</span>}
-          {totalPages > 5 && <button onClick={() => goToPage(totalPages)} className="px-3 py-1 border rounded">{totalPages}</button>}
+          {totalPages > 5 && (
+            <>
+              <span className="px-2">...</span>
+              <button onClick={() => goToPage(totalPages)} className="px-3 py-1 border rounded">{totalPages}</button>
+            </>
+          )}
           <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages} className="px-3 py-1 border rounded disabled:opacity-50">Next</button>
         </div>
       </div>
