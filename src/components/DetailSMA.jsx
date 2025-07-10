@@ -1,34 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function DetailSMA() {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
       <header className="bg-green-500 text-white">
         <div className="bg-green-500 h-12" />
         <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-6 py-3 bg-white gap-4 md:gap-0">
-          <div className="flex items-center space-x-4">
-            <img src="/src/assets/Logo Kejaksaan.png" alt="Logo" className="w-12 h-12" />
-            <div className="text-black">
-              <h1 className="text-base md:text-lg font-semibold">Kejaksaan Negeri</h1>
-              <h2 className="text-xl md:text-2xl font-bold">Bandar Lampung</h2>
+          <div className="flex items-center justify-between w-full md:w-auto">
+            <div className="flex items-center space-x-4">
+              <img src="/src/assets/Logo Kejaksaan.png" alt="Logo" className="w-12 h-12" />
+              <div className="text-black">
+                <h1 className="text-base md:text-lg font-semibold">Kejaksaan Negeri</h1>
+                <h2 className="text-xl md:text-2xl font-bold">Bandar Lampung</h2>
+              </div>
             </div>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden text-black text-2xl"
+            >
+              ☰
+            </button>
           </div>
 
-          <nav className="flex flex-col md:flex-row items-center md:space-x-10 gap-2 md:gap-0">
+          {/* Nav Menu */}
+          <nav
+            className={`${
+              menuOpen ? "flex" : "hidden"
+            } md:flex flex-col md:flex-row items-center md:space-x-10 gap-2 md:gap-0 w-full md:w-auto`}
+          >
             <a href="/DashboardAdmin1" className="text-black font-medium text-sm md:text-base">Home</a>
             <a href="/DashboardAdmin2" className="text-black font-medium text-sm md:text-base">Template Surat</a>
             <a
               href="/DashboardAdmin3"
-              className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white"
+              className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white hover:bg-green-600"
             >
               Surat M/K
             </a>
-            <button className="bg-black text-white text-sm px-4 py-1 rounded-full font-bold">
-              Admin
-            </button>
+            <button className="bg-black text-white text-sm px-4 py-1 rounded-full font-bold">Admin</button>
           </nav>
         </div>
         <div className="bg-green-500 h-12" />
@@ -46,10 +59,8 @@ export default function DetailSMA() {
 
       {/* Konten */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-4 md:px-10 pb-10">
-        {/* Info Surat */}
         <div className="lg:col-span-2 bg-white p-4 md:p-6 rounded shadow">
           <h3 className="text-lg md:text-xl font-bold mb-6">Surat Gacor nih</h3>
-
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
             <div>
               <p className="font-semibold underline mb-2">File</p>
@@ -60,13 +71,9 @@ export default function DetailSMA() {
               <p>8 Agustus 2025</p>
             </div>
           </div>
-
-          {/* Tombol Download */}
           <button className="w-full bg-gray-200 text-black font-bold py-3 rounded-md mt-6 text-sm md:text-base">
             Download Template
           </button>
-
-          {/* Tombol Edit */}
           <div className="flex justify-center mt-4">
             <button
               onClick={() => navigate("/EditSM")}
@@ -77,7 +84,6 @@ export default function DetailSMA() {
           </div>
         </div>
 
-        {/* Keterangan */}
         <div className="bg-white p-4 md:p-6 rounded shadow">
           <h3 className="font-bold text-base md:text-lg mb-2">Keterangan</h3>
           <textarea

@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function LoginAdmin() {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,12 +12,36 @@ export default function LoginAdmin() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white relative px-4">
-      {/* Tombol Admin */}
-      <div className="absolute top-4 right-4">
+      {/* Tombol Admin (Desktop) */}
+      <div className="absolute top-4 right-4 hidden md:block">
         <button className="bg-green-500 text-black font-bold px-4 py-2 rounded-full hover:bg-green-600 text-sm md:text-base">
           Admin
         </button>
       </div>
+
+      {/* Hamburger Menu (Mobile) */}
+      <div className="absolute top-4 right-4 md:hidden z-50">
+        <button onClick={() => setMenuOpen(true)} className="text-2xl font-bold text-black">
+          ☰
+        </button>
+      </div>
+
+      {/* Sidebar Menu Mobile */}
+      {menuOpen && (
+        <div className="fixed top-0 right-0 w-64 h-full bg-white z-50 shadow-lg p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-green-600 font-bold text-lg">MENU</h2>
+            <button onClick={() => setMenuOpen(false)} className="text-xl font-bold">×</button>
+          </div>
+          <ul className="space-y-4">
+            <li>
+              <button className="w-full bg-green-500 text-black font-bold px-4 py-2 rounded-full">
+                Admin
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
 
       {/* Gambar Gedung */}
       <div className="md:w-1/2 w-full flex justify-center items-center p-5">
