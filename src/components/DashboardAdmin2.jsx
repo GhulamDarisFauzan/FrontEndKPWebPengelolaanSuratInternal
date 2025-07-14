@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Menu, X } from "lucide-react"; // samakan dengan DashboardAdmin1
 
 export default function DashboardAdmin2() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function DashboardAdmin2() {
       <header className="bg-green-500 text-white z-50 relative">
         <div className="bg-green-500 h-12" />
 
-        <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-6 py-3 bg-white gap-4 md:gap-0 relative">
+        <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-6 py-3 bg-white gap-4 md:gap-0 relative z-50">
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <img
@@ -34,11 +35,9 @@ export default function DashboardAdmin2() {
           </div>
 
           {/* Hamburger (mobile only) */}
-          <div className="absolute right-4 top-3 md:hidden">
-            <button onClick={() => setIsOpen(true)} className="text-black focus:outline-none">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+          <div className="md:hidden absolute right-4 top-3 z-50">
+            <button onClick={() => setIsOpen(true)}>
+              <Menu className="w-6 h-6 text-black" />
             </button>
           </div>
 
@@ -72,15 +71,18 @@ export default function DashboardAdmin2() {
         } md:hidden`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b">
-          <h1 className="text-green-600 font-bold text-sm">MENU</h1>
+          <span
+            onClick={() => setIsOpen(false)}
+            className="text-green-600 font-semibold cursor-pointer text-lg"
+          >
+            MENU
+          </span>
           <button onClick={() => setIsOpen(false)}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <X className="w-6 h-6 text-black" />
           </button>
         </div>
 
-        <div className="flex flex-col px-6 py-4 gap-3">
+        <div className="flex flex-col p-6 gap-4">
           <a href="/DashboardAdmin1" className="text-black text-sm font-medium w-full text-left">
             Home
           </a>

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 export default function TSA3() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [menuOpen, setMenuOpen] = useState(false); // ← Tambahan untuk hamburger
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const itemsPerPage = 10;
 
@@ -40,59 +41,80 @@ export default function TSA3() {
   );
 
   const goToPage = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="relative min-h-screen bg-gray-100">
+      {/* Overlay saat sidebar aktif */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
       {/* Header */}
-      <header className="bg-green-500 text-white">
+      <header className="bg-green-500 text-white z-50 relative">
         <div className="bg-green-500 h-12" />
-        <div className="flex items-center justify-between px-6 py-3 bg-white shadow relative">
+        <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-6 py-3 bg-white gap-4 relative z-50">
+          {/* Logo */}
           <div className="flex items-center space-x-4">
             <img src="./src/assets/Logo Kejaksaan.png" alt="Logo" className="w-12 h-12" />
             <div className="text-black">
-              <h1 className="text-lg font-semibold">Kejaksaan Negeri</h1>
-              <h2 className="text-2xl font-bold">Bandar Lampung</h2>
+              <h1 className="text-base md:text-lg font-semibold">Kejaksaan Negeri</h1>
+              <h2 className="text-xl md:text-2xl font-bold">Bandar Lampung</h2>
             </div>
           </div>
 
-          {/* Menu Desktop */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/DashboardAdmin1" className="text-black font-medium">Home</Link>
-            <span className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold text-white">Template Surat</span>
-            <Link to="/DashboardAdmin3" className="text-black font-medium">Surat M/K</Link>
-            <button className="bg-black text-white text-sm px-4 py-1 rounded-full font-bold">Admin</button>
-          </nav>
-
-          {/* Hamburger (Mobile Only) */}
-          <div className="md:hidden absolute top-4 right-4">
-            <button onClick={() => setMenuOpen(true)} className="text-2xl font-bold text-black">☰</button>
+          {/* Icon Hamburger Mobile */}
+          <div className="md:hidden absolute right-4 top-3 z-50">
+            <button onClick={() => setMenuOpen(true)}>
+              <Menu className="w-6 h-6 text-black" />
+            </button>
           </div>
+
+          {/* Menu Desktop */}
+          <nav className="hidden md:flex flex-row items-center space-x-10 text-sm">
+            <Link to="/DashboardAdmin1" className="text-black font-medium">Home</Link>
+            <span className="bg-green-500 px-4 py-1 rounded-full text-white font-semibold">Template Surat</span>
+            <Link to="/DashboardAdmin3" className="text-black font-medium">Surat M/K</Link>
+            <button className="bg-black text-white px-4 py-1 rounded-full font-bold">Admin</button>
+          </nav>
         </div>
         <div className="bg-green-500 h-12" />
       </header>
 
-      {/* Sidebar Mobile */}
-      {menuOpen && (
-        <div className="fixed top-0 right-0 w-64 h-full bg-white z-50 shadow-md p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-green-600 font-bold text-lg">MENU</h2>
-            <button onClick={() => setMenuOpen(false)} className="text-xl font-bold">×</button>
-          </div>
-          <ul className="space-y-4">
-            <li><Link to="/DashboardAdmin1" className="block text-black">Home</Link></li>
-            <li><span className="block font-bold text-green-600">Template Surat</span></li>
-            <li><Link to="/DashboardAdmin3" className="block text-black">Surat M/K</Link></li>
-            <li><button className="w-full bg-black text-white px-4 py-2 rounded-full">Admin</button></li>
-          </ul>
+      {/* Menu Mobile (Slide dari kanan) */}
+      <nav
+        className={`fixed top-0 right-0 h-full w-[280px] bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        } md:hidden`}
+      >
+        {/* Header menu */}
+        <div className="flex items-center justify-between px-4 py-4 border-b">
+          <span
+            onClick={() => setMenuOpen(false)}
+            className="text-green-600 font-semibold cursor-pointer text-lg"
+          >
+            MENU
+          </span>
+          <button onClick={() => setMenuOpen(false)}>
+            <X className="w-6 h-6 text-black" />
+          </button>
         </div>
-      )}
 
-      {/* Content */}
-      <main className="px-8 py-8">
+        {/* Isi menu */}
+        <div className="flex flex-col p-6 gap-4">
+          <Link to="/DashboardAdmin1" className="text-black text-base" onClick={() => setMenuOpen(false)}>Home</Link>
+          <span className="bg-green-500 px-4 py-2 rounded-full text-sm font-semibold text-white">Template Surat</span>
+          <Link to="/DashboardAdmin3" className="text-black text-base" onClick={() => setMenuOpen(false)}>Surat M/K</Link>
+          <button className="bg-black text-white text-sm px-4 py-2 rounded-full">Admin</button>
+        </div>
+      </nav>
+
+      {/* Konten Utama */}
+      <main className="px-4 md:px-8 py-8">
         <h1 className="text-2xl text-red-600 font-bold mb-2 border-b-4 border-black inline-block">Template Surat</h1>
         <h2 className="text-center font-semibold text-black mb-6">“Template Surat”</h2>
 

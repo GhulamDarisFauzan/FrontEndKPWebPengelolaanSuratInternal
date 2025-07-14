@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react"; // npm install lucide-react
 
 export default function LSA2() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,11 +46,17 @@ export default function LSA2() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-green-500 text-white">
+    <div className="relative min-h-screen bg-gray-100">
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      <header className="bg-green-500 text-white z-50 relative">
         <div className="bg-green-500 h-12" />
-        <div className="flex flex-wrap md:flex-nowrap items-center justify-between px-6 py-3 bg-white gap-4 relative">
+        <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-6 py-3 bg-white gap-4 md:gap-0 relative z-50">
           <div className="flex items-center space-x-4">
             <img src="./src/assets/Logo Kejaksaan.png" alt="Logo" className="w-12 h-12" />
             <div className="text-black">
@@ -58,44 +65,58 @@ export default function LSA2() {
             </div>
           </div>
 
-          {/* Menu Desktop */}
-          <nav className="hidden md:flex flex-wrap items-center gap-4 text-sm">
+          <div className="md:hidden absolute top-3 right-4 z-50">
+            <button onClick={() => setMenuOpen(true)}>
+              <Menu className="w-6 h-6 text-black" />
+            </button>
+          </div>
+
+          <nav className="hidden md:flex flex-row items-center space-x-10">
             <a href="/DashboardAdmin1" className="text-black font-medium">Home</a>
             <a href="/DashboardAdmin2" className="text-black font-medium">Template Surat</a>
             <a href="#" className="bg-green-500 px-4 py-1 rounded-full text-white font-semibold">Surat M/K</a>
             <button className="bg-black text-white text-sm px-4 py-1 rounded-full font-bold">Admin</button>
           </nav>
-
-          {/* Hamburger Button */}
-          <div className="md:hidden absolute top-4 right-4">
-            <button onClick={() => setMenuOpen(true)} className="text-2xl font-bold text-black">☰</button>
-          </div>
         </div>
         <div className="bg-green-500 h-12" />
       </header>
 
-      {/* Sidebar Mobile */}
-      {menuOpen && (
-        <div className="fixed top-0 right-0 w-64 h-full bg-white z-50 shadow-md p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-green-600 font-bold text-lg">MENU</h2>
-            <button onClick={() => setMenuOpen(false)} className="text-xl font-bold">×</button>
-          </div>
-          <ul className="space-y-4">
-            <li><a href="/DashboardAdmin1" className="block text-black">Home</a></li>
-            <li><a href="/DashboardAdmin2" className="block text-black">Template Surat</a></li>
-            <li><a href="#" className="block font-bold text-green-600">Surat M/K</a></li>
-            <li><button className="w-full bg-black text-white px-4 py-2 rounded-full">Admin</button></li>
-          </ul>
+      <nav
+        className={`fixed top-0 right-0 h-full w-[280px] bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        } md:hidden`}
+      >
+        <div className="flex items-center justify-between px-4 py-4 border-b">
+          <span
+            onClick={() => setMenuOpen(false)}
+            className="text-green-600 font-semibold cursor-pointer text-lg"
+          >
+            MENU
+          </span>
+          <button onClick={() => setMenuOpen(false)}>
+            <X className="w-6 h-6 text-black" />
+          </button>
         </div>
-      )}
+        <div className="flex flex-col p-6 gap-4">
+          <a href="/DashboardAdmin1" className="text-black font-medium text-base w-full text-left">
+            Home
+          </a>
+          <a href="/DashboardAdmin2" className="text-black font-medium text-base w-full text-left">
+            Template Surat
+          </a>
+          <a href="#" className="bg-green-500 px-4 py-2 rounded-full text-sm font-semibold text-white w-full text-left">
+            Surat M/K
+          </a>
+          <button className="bg-black text-white text-sm px-4 py-2 rounded-full font-bold w-full text-left">
+            Admin
+          </button>
+        </div>
+      </nav>
 
-      {/* Content */}
       <div className="px-4 sm:px-8 py-8">
         <h1 className="text-2xl text-red-600 font-bold mb-2 border-b-4 border-black inline-block">Surat Keluar</h1>
         <h2 className="text-center font-semibold text-black mb-6">“Surat Keluar”</h2>
 
-        {/* Search */}
         <div className="flex justify-center mb-4">
           <input
             type="text"
@@ -106,7 +127,6 @@ export default function LSA2() {
           />
         </div>
 
-        {/* Table */}
         <div className="overflow-x-auto bg-white rounded shadow-sm">
           <table className="min-w-full border-collapse">
             <thead>
@@ -139,7 +159,6 @@ export default function LSA2() {
           </table>
         </div>
 
-        {/* Pagination */}
         <div className="flex flex-wrap justify-center mt-6 gap-1 text-sm">
           <button
             onClick={() => goToPage(currentPage - 1)}

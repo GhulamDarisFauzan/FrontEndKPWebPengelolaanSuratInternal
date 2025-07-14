@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 export default function LoginAdmin() {
   const navigate = useNavigate();
@@ -12,8 +13,16 @@ export default function LoginAdmin() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white relative px-4">
+      {/* Overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
       {/* Tombol Admin (Desktop) */}
-      <div className="absolute top-4 right-4 hidden md:block">
+      <div className="absolute top-4 right-4 hidden md:block z-50">
         <button className="bg-green-500 text-black font-bold px-4 py-2 rounded-full hover:bg-green-600 text-sm md:text-base">
           Admin
         </button>
@@ -21,27 +30,29 @@ export default function LoginAdmin() {
 
       {/* Hamburger Menu (Mobile) */}
       <div className="absolute top-4 right-4 md:hidden z-50">
-        <button onClick={() => setMenuOpen(true)} className="text-2xl font-bold text-black">
-          ☰
+        <button onClick={() => setMenuOpen(true)} className="text-black">
+          <Menu className="w-6 h-6" />
         </button>
       </div>
 
-      {/* Sidebar Menu Mobile */}
-      {menuOpen && (
-        <div className="fixed top-0 right-0 w-64 h-full bg-white z-50 shadow-lg p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-green-600 font-bold text-lg">MENU</h2>
-            <button onClick={() => setMenuOpen(false)} className="text-xl font-bold">×</button>
-          </div>
-          <ul className="space-y-4">
-            <li>
-              <button className="w-full bg-green-500 text-black font-bold px-4 py-2 rounded-full">
-                Admin
-              </button>
-            </li>
-          </ul>
+      {/* Sidebar (Mobile) */}
+      <nav
+        className={`fixed top-0 right-0 h-full w-[260px] bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        } md:hidden`}
+      >
+        <div className="flex items-center justify-between px-4 py-4 border-b">
+          <h1 className="text-green-600 font-bold text-sm">MENU</h1>
+          <button onClick={() => setMenuOpen(false)}>
+            <X className="w-6 h-6 text-black" />
+          </button>
         </div>
-      )}
+        <div className="flex flex-col px-6 py-4 gap-3">
+          <button className="w-full bg-green-500 text-black font-bold px-4 py-2 rounded-full">
+            Admin
+          </button>
+        </div>
+      </nav>
 
       {/* Gambar Gedung */}
       <div className="md:w-1/2 w-full flex justify-center items-center p-5">
